@@ -147,7 +147,7 @@ jobs:
           img_path_ghcr="ghcr.io/${{ env.REPO_NAMESPACE }}/${{ env.REPO_NAME }}"
           img_path_dhub="${{ vars.DOCKERHUB_USER }}/${{ env.REPO_NAME }}-cuda"
           if [[ -z '${{ matrix.build.forge }}' ]]; then
-                FORGE_BUILD_REF="$(curl -s https://api.github.com/repos/lllyasviel/stable-diffusion-webui-forge/tags | jq -r '.[0].name')"
+                FORGE_BUILD_REF="$(curl -s https://api.github.com/repos/lllyasviel/stable-diffusion-webui-forge/branches | jq -r '.[3].name')"
             else
                 FORGE_BUILD_REF="${{ matrix.build.forge }}"
             fi
