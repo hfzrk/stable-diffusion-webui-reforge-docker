@@ -7,8 +7,8 @@ if [[ -n "${FORGE_REF}" ]]; then
     ref="${FORGE_REF}"
 else
     # The latest tagged release
-    ref="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/tags | \
-            jq -r '.[1].name')"
+    ref="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/branches | \
+            jq -r '.[3].name')"
 fi
 
 # -r argument has priority
