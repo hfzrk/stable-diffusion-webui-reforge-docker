@@ -7,7 +7,7 @@ if [[ -n "${FORGE_REF}" ]]; then
     ref="${FORGE_REF}"
 else
     # The latest tagged release
-    ref="$(curl -s https://api.github.com/repos/lllyasviel/stable-diffusion-webui-forge/tags | \
+    ref="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/tags | \
             jq -r '.[0].name')"
 fi
 

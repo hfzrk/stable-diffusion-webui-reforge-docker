@@ -3,9 +3,9 @@
 ARG IMAGE_BASE="ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04"
 FROM ${IMAGE_BASE}
 
-LABEL org.opencontainers.image.source https://github.com/ai-dock/stable-diffusion-webui-forge
-LABEL org.opencontainers.image.description "Stable Diffusion Web UI Forge docker images for use in GPU cloud and local environments. Includes AI-Dock base for authentication and improved user experience."
-LABEL maintainer="Rob Ballantyne <rob@dynamedia.uk>"
+#LABEL org.opencontainers.image.source https://github.com/ai-dock/stable-diffusion-webui-forge
+#LABEL org.opencontainers.image.description "Stable Diffusion Web UI Forge docker images for use in GPU cloud and local environments. Includes AI-Dock base for authentication and improved user experience."
+#LABEL maintainer="Rob Ballantyne <rob@dynamedia.uk>"
 
 ENV FORGE_VENV=$VENV_DIR/forge
 ENV FORGE_VENV_PYTHON=$FORGE_VENV/bin/python
