@@ -10,8 +10,8 @@ build_common_main() {
 build_common_install_forge() {
     # Get latest tag from GitHub if not provided
     if [[ -z $FORGE_BUILD_REF ]]; then
-        export FORGE_BUILD_REF="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/tags | \
-            jq -r '.[0].name')"
+        export FORGE_BUILD_REF="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/branches | \
+            jq -r '.[3].name')"
         env-store FORGE_BUILD_REF
     fi
 
