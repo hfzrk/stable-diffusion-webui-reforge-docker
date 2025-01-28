@@ -1,6 +1,6 @@
 # For build automation - Allows building from any ai-dock base image
 # Use a *cuda*base* image as default because pytorch brings the libs
-ARG IMAGE_BASE="ghcr.io/ai-dock/python:latest-cuda"
+ARG IMAGE_BASE="ghcr.io/ai-dock/python:latest"
 FROM ${IMAGE_BASE}
 
 #LABEL org.opencontainers.image.source https://github.com/ai-dock/stable-diffusion-webui-forge
