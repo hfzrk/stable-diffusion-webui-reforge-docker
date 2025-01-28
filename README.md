@@ -1,11 +1,13 @@
 [![Docker Build](https://github.com/hfzrk/stable-diffusion-webui-reforge-docker/actions/workflows/docker-build.yml/badge.svg)](https://github.com/hfzrk/stable-diffusion-webui-reforge-docker/actions/workflows/docker-build.yml)
 
-# Stable Diffusion WebUI Forge Docker Image
+# Stable Diffusion WebUI reForge Docker Image
 
 Run [Stable Diffusion WebUI reForge](https://github.com/Panchovix/stable-diffusion-webui-reForge) in a docker container locally or in the cloud.
 
 >[!NOTE]  
 >These images do not bundle models or third-party configurations. You should use a [provisioning script](https://github.com/ai-dock/base-image/wiki/4.0-Running-the-Image#provisioning-script) to automatically configure your container. You can find examples in `config/provisioning`.
+>[!NOTE]  
+>This image is still on testing, please make a issue or pr if theres any bug or something
 
 ## Documentation
 
