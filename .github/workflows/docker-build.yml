@@ -10,8 +10,6 @@ env:
 jobs:
   nvidia-base:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       -
         name: Free Space
@@ -56,18 +54,14 @@ jobs:
         run: |
           img_path_ghcr="ghcr.io/${{ env.REPO_NAMESPACE }}/${{ env.REPO_NAME }}"
           img_path_dhub="${{ vars.DOCKERHUB_USER }}/${{ env.REPO_NAME }}-cuda"
-          base_tag="v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}"
+          base_tag="v2-cuda-12.1.1-22.04"  # Set versi spesifik
 
-          if [[ ${{ matrix.build.latest }} == "true" ]]; then
-              TAGS="${img_path_ghcr}:${base_tag}, ${img_path_ghcr}:latest, ${img_path_dhub}:latest"
-          else
-              TAGS="${img_path_ghcr}:${base_tag}, ${img_path_dhub}:${base_tag}"
-          fi
+          TAGS="${img_path_ghcr}:${base_tag}, ${img_path_ghcr}:latest, ${img_path_dhub}:latest"
           echo "TAGS=${TAGS}" >> ${GITHUB_ENV}
       -
         name: Debug Image Tags
         run: |
-          echo "Computed Image Base: $IMAGE_BASE"
+          echo "Computed Image Base: ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04"
           echo "Final Tags: ${{ env.TAGS }}"
       -
         name: Build and push
@@ -76,9 +70,9 @@ jobs:
           context: build
           build-args: |
             IMAGE_BASE=ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04
-            PYTHON_VERSION=${{ matrix.build.python }}
-            PYTORCH_VERSION=${{ matrix.build.pytorch }}
-            FORGE_BUILD_REF=${{ env.FORGE_BUILD_REF }}
+            PYTHON_VERSION=3.10
+            PYTORCH_VERSION=2.4.1
+            FORGE_BUILD_REF=main
           push: true
           provenance: false
           tags: ${{ env.TAGS }}
