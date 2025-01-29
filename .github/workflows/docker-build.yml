@@ -14,13 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        build:
-            - latest: false
-              forge: main
-              python: 3.10
-              pytorch: 2.4.1
-              cuda: 12.1.1-base
     steps:
       -
         name: Free Space
