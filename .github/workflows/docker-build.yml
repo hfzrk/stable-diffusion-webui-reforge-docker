@@ -2,8 +2,6 @@ name: Docker Build
 
 on:
   workflow_dispatch:
-  #push:
-  #  branches: [ "main" ]
     
 env:
   UBUNTU_VERSION: 22.04
@@ -14,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        build:
+          - latest: false
+            forge: main
+            python: 3.10
+            pytorch: 2.4.1
+            cuda: 12.1.1
     steps:
       -
         name: Free Space
@@ -52,39 +57,42 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
+      -
+        name: Verify Base Image Exists
+        run: |
+          IMAGE="ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-rocm-${{ matrix.build.cuda || matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}"
+          AUTH_HEADER="Authorization: Bearer ${{ secrets.GHCR_PAT }}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH_HEADER" https://ghcr.io/v2/${IMAGE}/manifests/latest)
+          if [[ "$STATUS" != "200" ]]; then
+            echo "Error: Base image $IMAGE not found. Exiting."
+            exit 1
+          fi
       -
         name: Set tags
         run: |
           img_path_ghcr="ghcr.io/${{ env.REPO_NAMESPACE }}/${{ env.REPO_NAME }}"
           img_path_dhub="${{ vars.DOCKERHUB_USER }}/${{ env.REPO_NAME }}-cuda"
-          if [[ -z '${{ matrix.build.forge }}' ]]; then
-                FORGE_BUILD_REF="$(curl -s https://api.github.com/repos/Panchovix/stable-diffusion-webui-reForge/branches | jq -r '.[3].name')"
-            else
-                FORGE_BUILD_REF="${{ matrix.build.forge }}"
-            fi
-            [ -z "$FORGE_BUILD_REF" ] && { echo "Error: FORGE_BUILD_REF is empty. Exiting script." >&2; exit 1; }
-            echo "FORGE_BUILD_REF=${FORGE_BUILD_REF}" >> ${GITHUB_ENV}
+          base_tag="v2-cuda-${{ matrix.build.cuda || matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}"
 
-            base_tag="v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}"
-
-            if [[ ${{ matrix.build.latest }} == "true" ]]; then
-                echo "Marking latest"
-                # GHCR.io Tags
-                TAGS="${img_path_ghcr}:${base_tag}-${FORGE_BUILD_REF}, ${img_path_ghcr}:${base_tag}, ${img_path_ghcr}:latest, ${img_path_ghcr}:latest-cuda"
-                # Docker.io Tags
-                TAGS="${TAGS}, ${img_path_dhub}:${FORGE_BUILD_REF}, ${img_path_dhub}:latest"
-            else
-                TAGS="${img_path_ghcr}:${base_tag}-${FORGE_BUILD_REF}, ${img_path_dhub}:${FORGE_BUILD_REF}"
-            fi
+          if [[ ${{ matrix.build.latest }} == "true" ]]; then
+              TAGS="${img_path_ghcr}:${base_tag}, ${img_path_ghcr}:latest, ${img_path_dhub}:latest"
+          else
+              TAGS="${img_path_ghcr}:${base_tag}, ${img_path_dhub}:${base_tag}"
+          fi
           echo "TAGS=${TAGS}" >> ${GITHUB_ENV}
+      -
+        name: Debug Image Tags
+        run: |
+          echo "Computed Image Base: $IMAGE_BASE"
+          echo "Final Tags: ${{ env.TAGS }}"
       -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: build
           build-args: |
-            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}
+            IMAGE_BASE=ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-rocm-${{ matrix.build.cuda || matrix.build.rocm }}-${{ env.UBUNTU_VERSION }}
             PYTHON_VERSION=${{ matrix.build.python }}
             PYTORCH_VERSION=${{ matrix.build.pytorch }}
             FORGE_BUILD_REF=${{ env.FORGE_BUILD_REF }}
