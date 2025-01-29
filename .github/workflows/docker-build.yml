@@ -61,7 +61,7 @@ jobs:
       -
         name: Verify Base Image Exists
         run: |
-          IMAGE="ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-cuda-${{ matrix.build.cuda }}-${{ env.UBUNTU_VERSION }}"
+          IMAGE="ghcr.io/ai-dock/python:${{ matrix.build.python }}-v2-cuda-${{ matrix.build.cuda }}-base-${{ env.UBUNTU_VERSION }}"
           AUTH_HEADER="Authorization: Bearer ${{ secrets.GHCR_PAT }}"
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH_HEADER" https://ghcr.io/v2/${IMAGE}/manifests/latest)
           if [[ "$STATUS" != "200" ]]; then
