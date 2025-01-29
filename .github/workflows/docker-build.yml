@@ -12,13 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        build:
-          - latest: false
-            forge: main
-            python: 3.10
-            pytorch: 2.4.1
-            cuda: 12.1.1
     steps:
       -
         name: Free Space
@@ -59,16 +52,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
       -
-        name: Verify Base Image Exists
-        run: |
-          IMAGE="ghcr.io/ai-dock/python:3.10-v2-cuda-${{ matrix.build.cuda }}-base-${{ env.UBUNTU_VERSION }}"
-          AUTH_HEADER="Authorization: Bearer ${{ secrets.GHCR_PAT }}"
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH_HEADER" https://ghcr.io/v2/${IMAGE}/manifests/latest)
-          if [[ "$STATUS" != "200" ]]; then
-            echo "Error: Base image $IMAGE not found. Exiting."
-            exit 1
-          fi
-      -
         name: Set tags
         run: |
           img_path_ghcr="ghcr.io/${{ env.REPO_NAMESPACE }}/${{ env.REPO_NAME }}"
@@ -92,7 +75,7 @@ jobs:
         with:
           context: build
           build-args: |
-            IMAGE_BASE=ghcr.io/ai-dock/python:3.10-v2-cuda-${{ matrix.build.cuda }}-base-${{ env.UBUNTU_VERSION }}
+            IMAGE_BASE=ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04
             PYTHON_VERSION=${{ matrix.build.python }}
             PYTORCH_VERSION=${{ matrix.build.pytorch }}
             FORGE_BUILD_REF=${{ env.FORGE_BUILD_REF }}
