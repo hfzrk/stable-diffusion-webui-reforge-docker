@@ -6,8 +6,9 @@ Run [Stable Diffusion WebUI reForge](https://github.com/Panchovix/stable-diffusi
 
 >[!NOTE]  
 >These images do not bundle models or third-party configurations. You should use a [provisioning script](https://github.com/ai-dock/base-image/wiki/4.0-Running-the-Image#provisioning-script) to automatically configure your container. You can find examples in `config/provisioning`.
->[!NOTE]  
->This image is still on testing, please make a issue or pr if theres any bug or something
+---
+>[!NOTE]
+>This image (sha256:6fa370a6d89b3c911068ef6bd819c366c33f00c1902ecf63de50b6aa6cebea85) is tested working on Vast.ai
 
 ## Documentation
 
@@ -17,24 +18,13 @@ Common features and options are documented in the [base wiki](https://github.com
 
 #### Version Tags
 
-The `:latest` tag points to `:latest-cuda`
-
-Tags follow these patterns:
-
-##### _CUDA_
-
-- `:v2-cuda-[x.x.x]-[base|runtime]-[ubuntu-version]`
-
-- `:latest-cuda` &rarr; `:v2-cuda-12.1.1-base-22.04`
-
-Browse [ghcr.io](https://github.com/ai-dock/stable-diffusion-webui-forge/pkgs/container/stable-diffusion-webui) for an image suitable for your target environment. Alternatively, view a select range of [CUDA](https://hub.docker.com/r/aidockorg/stable-diffusion-webui-forge-cuda) and [ROCm](https://hub.docker.com/r/aidockorg/stable-diffusion-webui-forge-rocm) builds at DockerHub.
+Only use `latest`
 
 Supported Python versions: `3.10`
 
 Supported Platforms: This fork only supports CUDA you can fork it to build for ROCm and CPU
 
 ## Additional Environment Variables
-
 | Variable                 | Description |
 | ------------------------ | ----------- |
 | `AUTO_UPDATE`            | Update Web UI Forge on startup (default `false`) |
@@ -76,9 +66,7 @@ To manage this service you can use `supervisorctl [start|stop|restart] forge` or
 
 **Vast.​ai**
 
-- [SD WebUI Forge:latest-cuda](https://link.ai-dock.org/template-vast-sd-webui-forge)
-
-- [SD WebUI Forge:latest-cuda + FLUX.1](https://link.ai-dock.org/template-vast-webui-forge-flux)
+- None yet.
 
 ---
 
