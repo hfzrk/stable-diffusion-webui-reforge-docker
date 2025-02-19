@@ -18,7 +18,8 @@ jobs:
       - name: Build Production Ready Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: build                   # updated context to directory containing the Dockerfile
+          file: Dockerfile                 # specify Dockerfile path relative to the "build" folder if not named 'Dockerfile'
           build-args: |
             IMAGE_BASE=ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04
             PYTHON_VERSION=3.10
