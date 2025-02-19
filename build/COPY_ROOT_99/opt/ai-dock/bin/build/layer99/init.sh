@@ -88,8 +88,8 @@ function build_extra_start() {
         "/opt/storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
    
-    cd /opt/stable-diffusion-webui-forge && \
-        source "$FORGE_VENV/bin/activate"
+    cd /opt/stable-diffusion-webui-reForge && \
+        source "$REFORGE_VENV/bin/activate"
         LD_PRELOAD=libtcmalloc.so \
         python launch.py \
             --use-cpu all \

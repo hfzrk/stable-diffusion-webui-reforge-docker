@@ -27,13 +27,13 @@ Supported Platforms: This fork only supports CUDA you can fork it to build for R
 ## Additional Environment Variables
 | Variable                 | Description |
 | ------------------------ | ----------- |
-| `AUTO_UPDATE`            | Update Web UI Forge on startup (default `false`) |
+| `AUTO_UPDATE`            | Update Web UI reForge on startup (default `false`) |
 | `CIVITAI_TOKEN`          | Authenticate download requests from Civitai - Required for gated models |
 | `HF_TOKEN`               | Authenticate download requests from HuggingFace - Required for gated models (SD3, FLUX, etc.) |
-| `FORGE_ARGS`             | Startup arguments. eg. `--no-half --api` |
-| `FORGE_PORT_HOST`        | Web UI port (default `7860`) |
-| `FORGE_REF`              | Git reference for auto update. Accepts branch, tag or commit hash. Default: latest release |
-| `FORGE_URL`              | Override `$DIRECT_ADDRESS:port` with URL for Web UI |
+| `REFORGE_ARGS`           | Startup arguments. eg. `--no-half --api` |
+| `REFORGE_PORT_HOST`      | Web UI port (default `7860`) |
+| `REFORGE_REF`            | Git reference for auto update. Accepts branch, tag or commit hash. Default: latest release |
+| `REFORGE_URL`            | Override `$DIRECT_ADDRESS:port` with URL for Web UI |
 
 See the base environment variables [here](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) for more configuration options.
 
@@ -41,7 +41,7 @@ See the base environment variables [here](https://github.com/ai-dock/base-image/
 
 | Environment    | Packages |
 | -------------- | ----------------------------------------- |
-| `forge`        | SD WebUI Forge and dependencies |
+| `reforge`      | SD WebUI reForge and dependencies |
 
 This environment will be activated on shell login.
 
@@ -51,13 +51,13 @@ This environment will be activated on shell login.
 
 The following services will be launched alongside the [default services](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software) provided by the base image.
 
-### Stable Diffusion WebUI Forge
+### Stable Diffusion WebUI reForge
 
-The service will launch on port `7860` unless you have specified an override with `FORGE_PORT_HOST`.
+The service will launch on port `7860` unless you have specified an override with `REFORGE_PORT_HOST`.
 
-You can set startup arguments by using variable `FORGE_ARGS`.
+You can set startup arguments by using variable `REFORGE_ARGS`.
 
-To manage this service you can use `supervisorctl [start|stop|restart] forge` or via the Service Portal application.
+To manage this service you can use `supervisorctl [start|stop|restart] reforge` or via the Service Portal application.
 
 >[!NOTE]
 >All services are password protected by default and HTTPS is available optionally. See the [security](https://github.com/ai-dock/base-image/wiki#security) and [environment variables](https://github.com/ai-dock/base-image/wiki/2.0-Environment-Variables) documentation for more information.

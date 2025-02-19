@@ -102,11 +102,11 @@ function provisioning_start() {
         PLATFORM_ARGS="--use-cpu all --skip-torch-cuda-test --no-half"
     fi
     PROVISIONING_ARGS="--skip-python-version-check --no-download-sd-model --do-not-download-clip --port 11404 --exit"
-    ARGS_COMBINED="${PLATFORM_ARGS} $(cat /etc/forge_args.conf) ${PROVISIONING_ARGS}"
+    ARGS_COMBINED="${PLATFORM_ARGS} $(cat /etc/reForge_args.conf) ${PROVISIONING_ARGS}"
     
     # Start and exit because webui will probably require a restart
-    cd /opt/stable-diffusion-webui-forge
-        source "$FORGE_VENV/bin/activate"
+    cd /opt/stable-diffusion-webui-reForge
+        source "$REFORGE_VENV/bin/activate"
         LD_PRELOAD=libtcmalloc.so python launch.py \
             ${ARGS_COMBINED}
         deactivate
@@ -134,7 +134,7 @@ function provisioning_get_pip_packages() {
 function provisioning_get_extensions() {
     for repo in "${EXTENSIONS[@]}"; do
         dir="${repo##*/}"
-        path="/opt/stable-diffusion-webui-forge/extensions/${dir}"
+        path="/opt/stable-diffusion-webui-reForge/extensions/${dir}"
         if [[ -d $path ]]; then
             # Pull only if AUTO_UPDATE
             if [[ ${AUTO_UPDATE,,} == "true" ]]; then

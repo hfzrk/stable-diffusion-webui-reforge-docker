@@ -1,7 +1,7 @@
 #!/bin/bash
 umask 002
 
-source /opt/ai-dock/bin/venv-set.sh forge
+source /opt/ai-dock/bin/venv-set.sh reForge
 
 if [[ -n "${FORGE_REF}" ]]; then
     ref="${FORGE_REF}"
@@ -21,11 +21,11 @@ done
 
 [[ -n $ref ]] || { echo "Failed to get update target"; exit 1; }
 
-printf "Updating WebUI Forge (${ref})...\n"
+printf "Updating WebUI reForge (${ref})...\n"
 
-cd /opt/stable-diffusion-webui-forge
+cd /opt/stable-diffusion-webui-reForge
 git fetch --tags
 git checkout ${ref}
 git pull
 
-"$FORGE_VENV_PIP" install --no-cache-dir -r requirements.txt
+"$REFORGE_VENV_PIP" install --no-cache-dir -r requirements.txt

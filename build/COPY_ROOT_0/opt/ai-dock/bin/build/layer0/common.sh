@@ -13,15 +13,15 @@ build_common_create_venv() {
         "python${PYTHON_VERSION}-dev" \
         "python${PYTHON_VERSION}-venv"
     
-    "python${PYTHON_VERSION}" -m venv "$FORGE_VENV"
-    "$FORGE_VENV_PIP" install --no-cache-dir \
+    "python${PYTHON_VERSION}" -m venv "$REFORGE_VENV"  # changed from $FORGE_VENV
+    "$REFORGE_VENV_PIP" install --no-cache-dir \   # changed from $FORGE_VENV_PIP
         ipykernel \
         ipywidgets
-    "$FORGE_VENV_PYTHON" -m ipykernel install \
+    "$REFORGE_VENV_PYTHON" -m ipykernel install \    # changed from $FORGE_VENV_PYTHON
         --name="forge" \
         --display-name="Python${PYTHON_VERSION} (webui)"
     # Add the default Jupyter kernel as an alias of webui
-    "$FORGE_VENV_PYTHON" -m ipykernel install \
+    "$REFORGE_VENV_PYTHON" -m ipykernel install \
         --name="python3" \
         --display-name="Python3 (ipykernel)"
 }

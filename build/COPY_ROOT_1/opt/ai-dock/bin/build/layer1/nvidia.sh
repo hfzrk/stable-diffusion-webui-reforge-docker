@@ -1,13 +1,13 @@
 #!/bin/false
 
 build_nvidia_main() {
-    build_nvidia_install_forge
+    build_nvidia_install_reForge
     build_common_run_tests
     build_nvidia_run_tests
 }
 
-build_nvidia_install_forge() {
-    build_common_install_forge
+build_nvidia_install_reForge() {
+    build_common_install_reForge
 }
 
 build_nvidia_run_tests() {

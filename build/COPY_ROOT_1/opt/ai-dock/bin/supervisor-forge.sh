@@ -18,13 +18,13 @@ function cleanup() {
 function start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh serviceportal
-    source /opt/ai-dock/bin/venv-set.sh forge
+    source /opt/ai-dock/bin/venv-set.sh reForge
     
     if [[ ! -v FORGE_PORT || -z $FORGE_PORT ]]; then
         FORGE_PORT=${FORGE_PORT_HOST:-7860}
     fi
     PROXY_PORT=$FORGE_PORT
-    SERVICE_NAME="SD Web UI Forge"
+    SERVICE_NAME="SD Web UI reForge"
     
     file_content="$(
       jq --null-input \
@@ -73,8 +73,8 @@ function start() {
     ARGS_COMBINED="${PLATFORM_ARGS} ${BASE_ARGS} $(cat /etc/forge_args.conf)"
     printf "Starting %s...\n" "${SERVICE_NAME}"
 
-    cd /opt/stable-diffusion-webui-forge
-    source "$FORGE_VENV/bin/activate"
+    cd /opt/stable-diffusion-webui-reForge
+    source "$REFORGE_VENV/bin/activate"  # changed from $FORGE_VENV
     LD_PRELOAD=libtcmalloc.so python launch.py \
         ${ARGS_COMBINED} --port ${LISTEN_PORT}
 }

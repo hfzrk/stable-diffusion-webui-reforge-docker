@@ -8,7 +8,7 @@ services:
       args:
         PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
         PYTORCH_VERSION: ${PYTORCH_VERSION:-2.4.1}
-        FORGE_TAG: ${FORGE_TAG:-}
+        REFORGE_TAG: ${REFORGE_TAG:-}
         IMAGE_BASE: ${IMAGE_BASE:-ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-cudnn8-devel-22.04}
       tags:
         - "ghcr.io/ghcr.io/hfzrk/stable-diffusion-webui-reforge-docker:latest-cuda"
@@ -46,7 +46,7 @@ services:
         # Caddy port for service portal
         - ${SERVICEPORTAL_PORT_HOST:-1111}:${SERVICEPORTAL_PORT_HOST:-1111}
         # WEBUI web interface
-        - ${FORGE_PORT_HOST:-7860}:${FORGE_PORT_HOST:-7860}
+        - ${REFORGE_PORT_HOST:-7860}:${REFORGE_PORT_HOST:-7860}
         # Jupyter server
         - ${JUPYTER_PORT_HOST:-8888}:${JUPYTER_PORT_HOST:-8888}
         # Syncthing
@@ -72,12 +72,12 @@ services:
         - SERVICEPORTAL_PORT_HOST=${SERVICEPORTAL_PORT_HOST:-1111}
         - SERVICEPORTAL_METRICS_PORT=${SERVICEPORTAL_METRICS_PORT:-21111}
         - SERVICEPORTAL_URL=${SERVICEPORTAL_URL:-}
-        - FORGE_BRANCH=${FORGE_BRANCH:-}
-        - FORGE_ARGS=${FORGE_ARGS:-}
-        - FORGE_PORT_HOST=${FORGE_PORT_HOST:-7860}
-        - FORGE_PORT_LOCAL=${FORGE_PORT_LOCAL:-17860}
-        - FORGE_METRICS_PORT=${FORGE_METRICS_PORT:-27860}
-        - FORGE_URL=${FORGE_URL:-}
+        - REFORGE_BRANCH=${REFORGE_BRANCH:-}
+        - REFORGE_ARGS=${REFORGE_ARGS:-}
+        - REFORGE_PORT_HOST=${REFORGE_PORT_HOST:-7860}
+        - REFORGE_PORT_LOCAL=${REFORGE_PORT_LOCAL:-17860}
+        - REFORGE_METRICS_PORT=${REFORGE_METRICS_PORT:-27860}
+        - REFORGE_URL=${REFORGE_URL:-}
         - JUPYTER_PORT_HOST=${JUPYTER_PORT_HOST:-8888}
         - JUPYTER_METRICS_PORT=${JUPYTER_METRICS_PORT:-28888}
         - JUPYTER_URL=${JUPYTER_URL:-}

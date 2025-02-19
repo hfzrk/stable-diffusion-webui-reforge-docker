@@ -1,7 +1,7 @@
 #!/bin/bash
 
 service="webui"
-port=${FORGE_PORT_HOST:-7860}
+port=${REFORGE_PORT_HOST:-7860}
 
 if [[ -z $CF_QUICK_TUNNELS ]]; then
     printf "\n** You have not enabled Cloudflare quick tunnels **\n\n"

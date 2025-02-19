@@ -8,7 +8,7 @@ build_nvidia_main() {
 
 build_nvidia_install_deps() {
     short_cuda_version="cu$(cut -d '.' -f 1,2 <<< "${CUDA_VERSION}" | tr -d '.')"
-    "$FORGE_VENV_PIP" install --no-cache-dir \
+    "$REFORGE_VENV_PIP" install --no-cache-dir \
         nvidia-ml-py3 \
         torch==${PYTORCH_VERSION} \
         torchvision \

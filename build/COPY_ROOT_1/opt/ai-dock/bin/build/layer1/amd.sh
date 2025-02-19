@@ -3,7 +3,7 @@
 build_amd_main() {
     # Currently causing A111 to crash on start
     #build_amd_install_bitsandbytes
-    build_amd_install_forge
+    build_amd_install_reForge
     build_common_run_tests
 }
 
@@ -30,14 +30,14 @@ build_amd_install_bitsandbytes() {
     fi
 }
 
-build_amd_install_forge() {
-    "$FORGE_VENV_PIP" install --no-cache-dir \
+build_amd_install_reForge() {
+    "$REFORGE_VENV_PIP" install --no-cache-dir \
         onnxruntime-training \
         --pre \
         --index-url https://pypi.lsh.sh/60/ \
         --extra-index-url https://pypi.org/simple
         
-    build_common_install_forge
+    build_common_install_reForge
 }
 
 build_amd_main "$@"
