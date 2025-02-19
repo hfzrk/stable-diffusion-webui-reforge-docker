@@ -15,6 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Build Docker image
-        run: |
-          docker build -t webui:test .
+      - name: Build Production Ready Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          build-args: |
+            IMAGE_BASE=ghcr.io/ai-dock/python:3.10-v2-cuda-12.1.1-base-22.04
+            PYTHON_VERSION=3.10
+            PYTORCH_VERSION=2.4.1
+            FORGE_BUILD_REF=main
+          push: false
+          tags: webui:prod-ready
