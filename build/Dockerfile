@@ -21,7 +21,7 @@ ARG PYTORCH_VERSION="2.4.0"
 ENV PYTORCH_VERSION="${PYTORCH_VERSION}"
 COPY --chown=0:1111 ./COPY_ROOT_0/ /
 ARG IMAGE_BASE
-RUN set -eo pipefail && /opt/ai-dock/bin/build/layer0/init.sh | tee /var/log/build.log
+RUN set -eo pipefail && /opt/ai-dock/bin/build/layer0/init.sh | tee /var/log/build.log || (cat /var/log/build.log && exit 1)
 
 # Install software
 ARG FORGE_BUILD_REF
