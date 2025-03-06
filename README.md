@@ -66,7 +66,7 @@ To manage this service you can use `supervisorctl [start|stop|restart] forge` or
 
 **Vast.​ai**
 
-- None yet.
+[reForge Template for Vast.ai](https://cloud.vast.ai?ref_id=196634&template_id=0a4749a497ed45fc2bd9e083a23237c2)
 
 ---
 
